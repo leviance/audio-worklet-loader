@@ -13,5 +13,19 @@
     "typescript": "^5.2.2",
     "webpack": "^5.88.2",
     "webpack-cli": "^5.1.4"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leviance/audio-worklet-loader.git"
+  },
+  "keywords": [
+    "webpack",
+    "audio worklet",
+    "audio worklet loader",
+    "audio worklet processor"
+  ],
+  "bugs": {
+    "url": "https://github.com/leviance/audio-worklet-loader/issues"
+  },
+  "homepage": "https://github.com/leviance/audio-worklet-loader#readme"
 }
