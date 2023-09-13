@@ -62,6 +62,7 @@ async function main() {
     audioBufferSource.connect(audioWorkletNode);
     audioWorkletNode.connect(audioCtx.destination);
     audioBufferSource.start();
+    console.log("Successfuly!!!");
 }
 
 main();
