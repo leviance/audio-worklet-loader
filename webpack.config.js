@@ -1,7 +1,8 @@
 const path = require("path");
 
 module.exports = {
-    entry: "./src/typescript/index.ts",
+    entry: "./example/javascript/index.js", // For javascript
+    // entry: "./example/typescript/index.ts", // For typescript
     output: {
         filename: "index.js",
         path: __dirname + "/dist"
@@ -10,15 +11,22 @@ module.exports = {
     target: "web",
     module: {
         rules: [
+            // For javascript
             {
-                test: /\.ts$/,
-                use: "ts-loader",
-                exclude: /node_modules/
+                test: /\.worklet\.js/,
+                use:  path.resolve("loader/loader.js")
             },
-            {
-                test: /\.worklet.ts$/,
-                use: [path.resolve("loader/loader.js"), "ts-loader"]
-            },
+
+            // For typescript
+            // {
+            //     test: /\.worklet\.ts$/,
+            //     use: path.resolve("loader/loader.js")
+            // },
+            // {
+            //     test: /\.ts$/,
+            //     use: "ts-loader",
+            //     exclude: /node_modules/
+            // },
         ]
     },
     resolve: {

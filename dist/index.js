@@ -9,6 +9,17 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./example/javascript/index.js":
+/*!*************************************!*\
+  !*** ./example/javascript/index.js ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _random_noise_worklet__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./random-noise.worklet */ \"./example/javascript/random-noise.worklet.js\");\n/* harmony import */ var _random_noise_worklet__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_random_noise_worklet__WEBPACK_IMPORTED_MODULE_0__);\n\r\n\r\nconst playBtn = document.getElementById(\"play-btn\");\r\nconst stopBtn = document.getElementById(\"stop-btn\");\r\n\r\nconst audioCtx = new AudioContext();\r\n\r\nplayBtn.addEventListener(\"click\", async () => {\r\n    await audioCtx.audioWorklet.addModule((_random_noise_worklet__WEBPACK_IMPORTED_MODULE_0___default()));\r\n    const audioBufferSource = audioCtx.createBufferSource();\r\n    const audioWorkletNode = new AudioWorkletNode(audioCtx, \"audio-decoder\");\r\n\r\n    audioWorkletNode.port.postMessage({\r\n        message: \"INIT\"\r\n    })\r\n\r\n    audioWorkletNode.port.onmessage = (e) => {\r\n        const {message} = e.data;\r\n\r\n        switch (message) {\r\n            case \"INIT\":\r\n                console.log(\"Init audio worklet node success.\");\r\n                break;\r\n\r\n            default:\r\n                console.log(\"Unhandled message from audio decoder.\");\r\n        }\r\n    }\r\n\r\n    audioBufferSource.connect(audioWorkletNode);\r\n    audioWorkletNode.connect(audioCtx.destination);\r\n    audioBufferSource.start();\r\n})\r\n\r\nstopBtn.addEventListener(\"click\", async () => {\r\n    const startTime = performance.now();\r\n    await audioCtx.suspend();\r\n    console.log(performance.now() - startTime);\r\n})\n\n//# sourceURL=webpack://audio-worklet-loader/./example/javascript/index.js?");
+
+/***/ }),
+
 /***/ "./loader/getWorklet.js":
 /*!******************************!*\
   !*** ./loader/getWorklet.js ***!
@@ -19,24 +30,13 @@ eval("function getWorklet(source) {\r\n    const workletBlob = new Blob([source]
 
 /***/ }),
 
-/***/ "./src/typescript/random-noise.worklet.ts":
-/*!************************************************!*\
-  !*** ./src/typescript/random-noise.worklet.ts ***!
-  \************************************************/
+/***/ "./example/javascript/random-noise.worklet.js":
+/*!****************************************************!*\
+  !*** ./example/javascript/random-noise.worklet.js ***!
+  \****************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("module.exports = __webpack_require__(/*! ./loader/getWorklet.js */ \"./loader/getWorklet.js\")(\"// @ts-ignore\\nclass AudioDecoder extends AudioWorkletProcessor {\\n    constructor() {\\n        super();\\n        this.initWorklet = false;\\n        // @ts-ignore\\n        this.port.onmessage = (e) => {\\n            const { message } = e.data;\\n            switch (message) {\\n                case \\\"INIT\\\":\\n                    console.log(\\\"[AUDIO-DECODER]: Init audio worklet node processor.\\\");\\n                    break;\\n                default:\\n                    console.log(\\\"[AUDIO-DECODER]: Unhandled message.\\\");\\n                    break;\\n            }\\n        };\\n    }\\n    process(inputs, outputs) {\\n        const output = outputs[0];\\n        for (let channel = 0; channel < output.length; ++channel) {\\n            const outputChannel = output[channel];\\n            for (let i = 0; i < outputChannel.length; ++i) {\\n                // Generate a random number between -1 and 1\\n                // Assign the random value to the output channel\\n                outputChannel[i] = Math.random() * 2 - 1;\\n            }\\n        }\\n        if (!this.initWorklet) {\\n            // @ts-ignore\\n            this.port.postMessage({ message: \\\"INIT\\\" });\\n            this.initWorklet = true;\\n        }\\n        return true;\\n    }\\n}\\n// @ts-ignore Register the AudioWorklet processor\\nregisterProcessor(\\\"audio-decoder\\\", AudioDecoder);\\n\");\n\n\n//# sourceURL=webpack://audio-worklet-loader/./src/typescript/random-noise.worklet.ts?");
-
-/***/ }),
-
-/***/ "./src/typescript/index.ts":
-/*!*********************************!*\
-  !*** ./src/typescript/index.ts ***!
-  \*********************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-eval("\nvar __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {\n    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }\n    return new (P || (P = Promise))(function (resolve, reject) {\n        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }\n        function rejected(value) { try { step(generator[\"throw\"](value)); } catch (e) { reject(e); } }\n        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }\n        step((generator = generator.apply(thisArg, _arguments || [])).next());\n    });\n};\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\n// @ts-ignore\nconst random_noise_worklet_1 = __importDefault(__webpack_require__(/*! ./random-noise.worklet */ \"./src/typescript/random-noise.worklet.ts\"));\nconst playBtn = document.getElementById(\"play-btn\");\nconst stopBtn = document.getElementById(\"stop-btn\");\nconst audioCtx = new AudioContext();\nplayBtn.addEventListener(\"click\", () => __awaiter(void 0, void 0, void 0, function* () {\n    yield audioCtx.audioWorklet.addModule(random_noise_worklet_1.default);\n    const audioBufferSource = audioCtx.createBufferSource();\n    const audioWorkletNode = new AudioWorkletNode(audioCtx, \"audio-decoder\");\n    audioWorkletNode.port.postMessage({\n        message: \"INIT\"\n    });\n    audioWorkletNode.port.onmessage = (e) => {\n        const { message } = e.data;\n        switch (message) {\n            case \"INIT\":\n                console.log(\"Init audio worklet node success.\");\n                break;\n            default:\n                console.log(\"Unhandled message from audio decoder.\");\n        }\n    };\n    audioBufferSource.connect(audioWorkletNode);\n    audioWorkletNode.connect(audioCtx.destination);\n    audioBufferSource.start();\n}));\nstopBtn.addEventListener(\"click\", () => __awaiter(void 0, void 0, void 0, function* () {\n    const startTime = performance.now();\n    yield audioCtx.suspend();\n    console.log(performance.now() - startTime);\n}));\n\n\n//# sourceURL=webpack://audio-worklet-loader/./src/typescript/index.ts?");
+eval("module.exports = __webpack_require__(/*! ./loader/getWorklet.js */ \"./loader/getWorklet.js\")(\"class AudioDecoder extends AudioWorkletProcessor {\\r\\n    initWorklet = false;\\r\\n\\r\\n    constructor() {\\r\\n        super();\\r\\n\\r\\n        this.port.onmessage = (e) => {\\r\\n            const {message} = e.data;\\r\\n\\r\\n            switch (message) {\\r\\n                case \\\"INIT\\\":\\r\\n                    console.log(\\\"[AUDIO-DECODER]: Init audio worklet node processor.\\\");\\r\\n                    break;\\r\\n\\r\\n                default:\\r\\n                    console.log(\\\"[AUDIO-DECODER]: Unhandled message.\\\");\\r\\n                    break;\\r\\n            }\\r\\n        }\\r\\n    }\\r\\n\\r\\n    process(inputs, outputs) {\\r\\n        const output = outputs[0];\\r\\n\\r\\n        for (let channel = 0; channel < output.length; ++channel) {\\r\\n            const outputChannel = output[channel];\\r\\n\\r\\n            for (let i = 0; i < outputChannel.length; ++i) {\\r\\n                // Generate a random number between -1 and 1\\r\\n                // Assign the random value to the output channel\\r\\n                outputChannel[i] = Math.random() * 2 - 1;\\r\\n            }\\r\\n        }\\r\\n\\r\\n        if (!this.initWorklet) {\\r\\n            // @ts-ignore\\r\\n            this.port.postMessage({message: \\\"INIT\\\"});\\r\\n            this.initWorklet = true;\\r\\n        }\\r\\n\\r\\n        return true;\\r\\n    }\\r\\n}\\r\\n\\r\\n// Register the AudioWorklet processor\\r\\nregisterProcessor(\\\"audio-decoder\\\", AudioDecoder);\")\n\n//# sourceURL=webpack://audio-worklet-loader/./example/javascript/random-noise.worklet.js?");
 
 /***/ })
 
@@ -60,18 +60,59 @@ eval("\nvar __awaiter = (this && this.__awaiter) || function (thisArg, _argument
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
 /******/ 	
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	var __webpack_exports__ = __webpack_require__("./src/typescript/index.ts");
+/******/ 	// This entry module can't be inlined because the eval devtool is used.
+/******/ 	var __webpack_exports__ = __webpack_require__("./example/javascript/index.js");
 /******/ 	
 /******/ })()
 ;
