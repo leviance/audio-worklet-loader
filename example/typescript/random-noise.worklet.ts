@@ -1,9 +1,13 @@
+import {log} from "./utils";
+
 // @ts-ignore
 class AudioDecoder extends AudioWorkletProcessor {
     initWorklet = false;
 
     constructor() {
         super();
+
+        log("[AUDIO-WORKLET-PROCESSOR]: Init.");
 
         // @ts-ignore
         this.port.onmessage = (e) => {

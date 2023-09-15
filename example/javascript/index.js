@@ -5,6 +5,8 @@ const stopBtn = document.getElementById("stop-btn");
 
 const audioCtx = new AudioContext();
 
+console.log(randomNoise);
+
 playBtn.addEventListener("click", async () => {
     await audioCtx.audioWorklet.addModule(randomNoise);
     const audioBufferSource = audioCtx.createBufferSource();

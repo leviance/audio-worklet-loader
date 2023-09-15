@@ -2,6 +2,8 @@
 
 Audio Worklet loader for webpack.
 
+<span style="color: orange;">**Warning:** We do not yet support WEBPACK 4!</span>
+
 ## Getting Started
 To begin, you'll need to install worker-loader:
 ```shell
@@ -9,7 +11,10 @@ npm install audio-worklet-loader --save-dev
 ```
 
 ## Inlined
-There will be support in the future.
+For use without config in **webpack.config.js**
+```js
+import randomNoise from "audio-worklet-loader!./random-noise.worklet.js";
+```
 
 ## Config
 ### Config for Javascript
@@ -21,7 +26,7 @@ module.exports = {
         rules: [
             {
                 test: /\.worklet\.js$/,
-                use: { loader: "audio-worklet-loader" },
+                loader: "audio-worklet-loader",
             },
         ],
     },
@@ -30,6 +35,9 @@ module.exports = {
 ```
 
 ### Config for Typescript
+
+Note that `audio-worklet-loader` need to be appeared before `ts-loader`.
+
 **webpack.config.js**
 ```js
 module.exports = {
@@ -38,13 +46,29 @@ module.exports = {
         rules: [
             {
                 test: /\.worklet\.ts$/,
-                // you need to install ts-loader first (if it does not exist!).
-                use: ["audio-worklet-loader", "ts-loader"],
-            }
+                loader: "audio-worklet-loader",
+            },
+            {
+                test: /\.ts$/,
+                use: "ts-loader",
+                exclude: /node_modules/
+            },
         ],
     },
     ...
 };
+```
+
+### More
+To import files without specifying an extension `import code from './code'` instead of `import code from './code.js'`
+```js
+module.exports = {
+    ...,
+    resolve: {
+        extensions: ['.ts', '.js'],
+    },
+    ...
+}
 ```
 
 ## Example
@@ -99,7 +123,40 @@ registerProcessor("random-noise", RandomNoise);
 And run webpack via your preferred method.
 
 ## Options
-There will be support in the future.
+
+|                 Name                  |            Type             |             Default             | Description                             |
+| :-----------------------------------: | :-------------------------: | :-----------------------------: |:----------------------------------------|
+|        **[`inline`](#inline)**        | `'no-fallback'\|'fallback'` |           `undefined`           | Allow to inline the worklet as a `BLOB` |
+
+
+### `inline`
+Type: `'fallback' | 'no-fallback'`
+Default: `undefined`
+
+Allow to inline the Audio Worklet as a `BLOB`.
+
+Inline mode with the `fallback` still bundle worklet file (although we do not need this file), to disable this behavior 
+just use `no-fallback` value.
+
+**webpack.config.js**
+
+```js
+module.exports = {
+    ...,
+    module: {
+        rules: [
+            {
+                test: /\.worklet\.js/,
+                loader:  path.resolve("loader/loader.js"),
+                options: {
+                    inline: "no-fallback",
+                }
+            }
+        ]
+    },
+    ...
+};
+```
 
 ## Contributing
 

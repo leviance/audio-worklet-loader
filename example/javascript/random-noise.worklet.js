@@ -1,8 +1,12 @@
+import {log} from "./utils";
+
 class AudioDecoder extends AudioWorkletProcessor {
     initWorklet = false;
 
     constructor() {
         super();
+
+        log("[AUDIO-WORKLET-PROCESSOR]: Init.");
 
         this.port.onmessage = (e) => {
             const {message} = e.data;

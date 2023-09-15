@@ -1,6 +1,6 @@
 {
   "name": "audio-worklet-loader",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Webpack loader for audio worklet",
   "main": "loader/loader.js",
   "scripts": {
@@ -28,5 +28,8 @@
   "bugs": {
     "url": "https://github.com/leviance/audio-worklet-loader/issues"
   },
-  "homepage": "https://github.com/leviance/audio-worklet-loader#readme"
+  "homepage": "https://github.com/leviance/audio-worklet-loader#readme",
+  "dependencies": {
+    "schema-utils": "^4.2.0"
+  }
 }
