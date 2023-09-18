@@ -1,24 +1,4 @@
-const path = require("path");
-const {sourceURLWebpackRegex, sourceMappingURLRegex} = require("./utils");
-
-/**
- * Generate BLOB from source.
- * @param source string
- * @return string
- */
-function genBlob(source) {
-    const workletPath = JSON.stringify(path.join(__dirname, "workletToBlob.js"));
-    return `module.exports = require(${workletPath})(${JSON.stringify(source)})`;
-}
-
-/**
- * Generate URL to Audio Worklet output file.
- * @param workletFileName
- * @return string
- */
-function genURL(workletFileName) {
-    return `module.exports = __webpack_public_path__ + ${JSON.stringify(workletFileName)}`;
-}
+const {sourceURLWebpackRegex, sourceMappingURLRegex, genBlob, genURL} = require("./utils");
 
 module.exports = function runAsChild(loaderContext, workletCtx, options, callback) {
     workletCtx.compiler.runAsChild((error, entries, compilation) => {
@@ -55,8 +35,8 @@ module.exports = function runAsChild(loaderContext, workletCtx, options, callbac
                     workletSource = workletSource.replace(sourceURLWebpackRegex, "");
                 }
 
-                let workletCode = options.inline === undefined ? genURL(workletFileName) : genBlob(workletSource);
-                let workletBuff = Buffer.from(workletCode);
+                const workletCode = options.inline === undefined ? genURL(workletFileName) : genBlob(workletSource);
+                const workletBuff = Buffer.from(workletCode);
 
                 return cache.store(
                     cacheIdent,

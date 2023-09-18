@@ -159,7 +159,38 @@ module.exports = {
 ```
 
 ## Contributing
+Please take a moment to read our contributing guidelines if you haven't yet done so.
+[CONTRIBUTING](https://github.com/webpack-contrib/worker-loader/blob/HEAD/.github/CONTRIBUTING.md)
+
+## Testing
+
+With webpack 4:
+
+**package.json**
+```json
+{
+    "devDependencies": {
+        "ts-loader": "^5.4.5",
+        "webpack": "^4.0.0",
+        "webpack-cli": "^3.3.12"
+    }
+}
+```
+
+With webpack 5:
+
+**package.json**
+```json
+{
+    "devDependencies": {
+        "ts-loader": "^9.4.4",
+        "webpack": "^5.88.2",
+        "webpack-cli": "^5.1.4"
+    }
+}
+```
 
 ## Issues
-If you have any issues when using audio-worklet-loader please create an issue in GitHub homepage of a project, 
+If you have any issues when using audio-worklet-loader please create an issue in GitHub homepage of a project
+and show me version of webpack or webpack-cli, ts-loader, ... for me.
 I will check it as soon as possible.

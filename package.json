@@ -1,20 +1,17 @@
 {
   "name": "audio-worklet-loader",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "Webpack loader for audio worklet",
   "main": "loader/loader.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack"
   },
+  "files": [
+    "dist"
+  ],
   "author": "Levi Anthony",
   "license": "ISC",
-  "devDependencies": {
-    "ts-loader": "^9.4.4",
-    "typescript": "^5.2.2",
-    "webpack": "^5.88.2",
-    "webpack-cli": "^5.1.4"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/leviance/audio-worklet-loader.git"
@@ -30,6 +27,12 @@
   },
   "homepage": "https://github.com/leviance/audio-worklet-loader#readme",
   "dependencies": {
+    "loader-utils": "^2.0.0",
     "schema-utils": "^4.2.0"
+  },
+  "devDependencies": {
+    "ts-loader": "^9.4.4",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
   }
 }

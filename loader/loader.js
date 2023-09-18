@@ -1,4 +1,5 @@
 const {validate} = require("schema-utils");
+const { getOptions } = require("loader-utils");
 const path = require("path");
 const LoaderError = require("./loader-error");
 const SingleEntryPlugin = require("webpack/lib/SingleEntryPlugin");
@@ -43,15 +44,15 @@ function AudioWorkletLoader(source) {
 }
 
 function pitch(request) {
-    this.cacheable(false);
+    // this.cacheable(false);
 
     if (this.target !== "web")
         throw new LoaderError({name: "Worklet Loader", message: "This loader is only support for target: web"});
 
     const cb = this.async();
-    const options = this.getOptions();
     const workletCtx = {options: {filename: "[name].js"}};
     const useWebpack5 = require("webpack/package.json").version.startsWith("5.");
+    const options = useWebpack5 ? this.getOptions() : getOptions(this);
 
     validate(schema, options, {name: "Audio Worklet Loader", baseDataPath: "options"});
 
