@@ -1,15 +1,12 @@
 {
   "name": "audio-worklet-loader",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Webpack loader for audio worklet",
   "main": "loader/loader.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack"
   },
-  "files": [
-    "dist"
-  ],
   "author": "Levi Anthony",
   "license": "ISC",
   "repository": {
