@@ -1,5 +1,13 @@
 .idea/
 
+# Ignore all files in the 'dist' directory
+dist/*
+
+# Except for 'index.html'
+!dist/index.html
+
+package-lock.json
+
 # Logs
 logs
 *.log

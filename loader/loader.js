@@ -44,7 +44,7 @@ function AudioWorkletLoader(source) {
 }
 
 function pitch(request) {
-    // this.cacheable(false);
+    this.cacheable(false);
 
     if (this.target !== "web")
         throw new LoaderError({name: "Worklet Loader", message: "This loader is only support for target: web"});

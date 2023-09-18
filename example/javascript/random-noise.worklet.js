@@ -1,9 +1,9 @@
 import {log} from "./utils";
 
 class AudioDecoder extends AudioWorkletProcessor {
-    initWorklet = false;
     constructor() {
         super();
+        this.initWorklet = false;
 
         log("[AUDIO-WORKLET-PROCESSOR]: Init.");
 

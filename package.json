@@ -1,6 +1,6 @@
 {
   "name": "audio-worklet-loader",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Webpack loader for audio worklet",
   "main": "loader/loader.js",
   "scripts": {
