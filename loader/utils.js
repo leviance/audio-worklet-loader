@@ -38,7 +38,10 @@ function genBlob(source) {
  * @return string
  */
 function genURL(workletFileName) {
-    return `module.exports = __webpack_public_path__ + ${JSON.stringify(workletFileName)}`;
+    return `
+    // @ts-ignore
+    module.exports = __webpack_public_path__ + ${JSON.stringify(workletFileName)};
+    `;
 }
 
 module.exports = {
